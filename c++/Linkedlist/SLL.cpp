@@ -1,4 +1,5 @@
 #include<iostream>
+#include<unordered_set>
 using namespace std;
 
 struct node{
@@ -159,6 +160,55 @@ node * removeLOOP(node* head){
     temp->next = NULL;
     return head;
 }
+void removeduplicatesorted(node* head){
+    node* curr = head;
+    while(curr!=NULL && curr->next != NULL){
+        if(curr->data == curr->next->data){
+            node* temp = curr->next;
+            curr->next = curr->next->next;
+            delete temp;
+        }
+        else{
+            curr = curr->next;
+        }  
+    }
+}
+//using hash set
+void removedupliUNSORTED(node* head){
+    unordered_set<int> s;
+    node* curr = head;
+    node* prev = NULL;
+    while(curr!=NULL){
+        if(s.find(curr->data)!=s.end()){
+            prev->next = curr->next;
+            delete curr;
+            curr = prev->next;
+        }
+        else{
+            s.insert(curr->data);
+            prev = curr;
+            curr = curr->next;
+        }
+    }
+}
+//using two loops
+void removedupli(node* head){
+    node* curr = head;
+    while(curr != NULL){
+        node* runner = curr;
+        while(runner->next != NULL){
+            if(curr->data == runner->next->data){
+                node* temp = runner;
+                runner->next = runner->next->next;
+                delete temp;
+            }
+            else{
+                runner = runner->next;
+            }
+        }
+        curr = curr->next;
+    }
+}
 int length(node* head){
     if(head==NULL){
         return -1;
@@ -184,14 +234,16 @@ int main(){
     node* tail = NULL;
     insertAtHead(head,tail,1);
     insertAtPosition(head,tail,2,2);
-    insertAtTail(head,tail,3);
-    insertAtTail(head,tail,4);
-    insertAtTail(head,tail,5);
     insertAtTail(head,tail,6);
+    insertAtTail(head,tail,6);
+    insertAtTail(head,tail,7);
+    insertAtTail(head,tail,2);
     printList(head);
-    tail->next = head->next->next;
-    node* find = getstartnode(head);
-    cout<<"starting node :"<<find->data;
+    removedupliUNSORTED(head);
+    printList(head);
+    // tail->next = head->next->next;
+    // node* find = getstartnode(head);
+    // cout<<"starting node :"<<find->data;
     // deleteAtHead(head,tail);
     // printList(head);
     // deleteAtTail(head,tail);
