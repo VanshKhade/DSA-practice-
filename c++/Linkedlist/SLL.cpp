@@ -148,6 +148,17 @@ node * getstartnode(node* head){
     return slow;
 
 }
+node * removeLOOP(node* head){
+    if(head==NULL) return NULL;
+    node* start = getstartnode(head);
+    if(start ==NULL) return head;
+    node* temp = start;
+    while(temp->next != start){
+        temp = temp->next;
+    }
+    temp->next = NULL;
+    return head;
+}
 int length(node* head){
     if(head==NULL){
         return -1;
