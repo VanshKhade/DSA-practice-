@@ -257,6 +257,74 @@ void printList(node* head){
     }
     cout<<endl;
 }
+//--------------------------------------
+//Add two number represented by LL
+node* addList(node* l1,node* l2){
+    node*head = NULL;
+    node* tail = NULL;
+    int carry = 0;
+    while(l1 || l2 || carry){
+        int sum = carry;
+        if(l1){
+            sum+= l1->data;
+            l1 = l1->next;
+        }
+        if(l2){
+            sum+= l2->data;
+            l2 = l2->next;
+        }
+        int digit = sum%10;
+        carry = sum/10;
+        node* newNode = new node(digit);
+        if(!head){
+            head = tail =newNode;
+        }
+        else{
+            tail->next = newNode;
+            tail =newNode;
+        }
+    }
+    return head;
+}
+node* addtwoList(node* l1,node* l2){
+    l1 = reverse(l1);
+    l2 = reverse(l2);
+    node* result = addList(l1,l2);
+    return reverse(result);
+}
+//BY using stack
+//include<stack>
+/*node* addtwo(node* l1, node* l2){
+    stack<int> s1 , s2;
+    while(l1){
+        s1.push(l1->data);
+        l1 = l1->next;
+    }
+    while(l2){
+        s2.push(l2->data);
+        l2 = l2->next;
+    }
+    int carry = 0;
+    node* head = NULL;
+    while(!s1.empty() || !s2.empty() || carry){
+        int sum = carry;
+        if(!s1.empty()){
+            sum += s1.top();
+            s1.pop();
+        }
+        if(!s2.empty()){
+            sum += s2.top();
+            s2.pop();
+        }
+        int digit = sum%10;
+        carry = sum/10;
+        node* newNODE = new node(digit);
+        newNODE->next = head;
+        head = newNODE;
+    }
+    return head;
+}
+*/
 int main(){
 
     node* head = NULL;
