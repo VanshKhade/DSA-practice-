@@ -209,6 +209,35 @@ void removedupli(node* head){
         curr = curr->next;
     }
 }
+bool isPalindrome(node* head){
+    if(head==NULL || head->next == NULL){
+        return true;
+    }
+    node* slow = head;
+    node* fast = head;
+    while(fast->next != NULL && fast->next->next !=NULL){
+        slow = slow->next;
+        fast = fast->next;
+    }  
+    node* prev = NULL;
+    node* curr = slow->next;
+    while(curr!=NULL){
+        node* NEW = curr->next;
+        curr->next = prev;
+        prev = curr;
+        curr = NEW;
+    } 
+    node*first = head;
+    node*second = prev;
+    while(second != NULL){
+        if(first->data != second->data){
+            return false;
+        }
+        first = first->next;
+        second = second->next;
+    }
+    return true;
+}
 int length(node* head){
     if(head==NULL){
         return -1;
