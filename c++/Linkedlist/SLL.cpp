@@ -420,6 +420,29 @@ node* copyList(node* head){
     return merge(L1,L2);
     }
 */
+/*//--Flatten a Linked list--//
+    node* merge(node* L1, node* L2){
+        if(L2==NULL) return L1;
+        if(L1==NULL) return L2;
+        node* result;
+        if(L1->data < L2->data){
+            result = L1;
+            result->bottom = merge(L1->bottom,L2);
+        }
+        else{
+            result = L2;
+            result->bottom = merge(L1,L2->bottom);
+        }
+        result->next = NULL;
+        return result;
+    }
+    node* flatten(node* head){
+    if(root==NULL || root->next == NULL)
+        return root;
+    root->next = flatten(root->next);
+    root = merge(root,root->next);
+    return root;
+    }*/
 int main(){
 
     node* head = NULL;
