@@ -382,6 +382,44 @@ node* copyList(node* head){
     }
     return copyhead;
 }*/
+/*//--Merege sort in linked list--//
+    //Find middle node
+    node* middle(node* head){
+        node* slow = head;
+        node* fast = head->next;
+        while(fast != NULL && fast->next != NULL){
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+        return slow;
+    }
+    //Merge 2 sorted lists
+    node* merge(node* L1, node* L2){
+        if(L2==NULL) return L1;
+        if(L1==NULL) return L2;
+        node* result = NULL;
+        if(L1->data <= L2->data){
+            result = L1;
+            result->next = merge(L1->next,L2);
+        }
+        else{
+            result = L2;
+            result->next = merge(L1,L2->next);
+        }
+        return result;
+    }
+    node* mergesort(node* head){
+    if(head == NULL || head->next == NULL)
+        return head;
+    node* mid = middle(head);
+    node* L1 = head;
+    node* L2 = mid->next;
+    mid->next = NULL;
+    L1 = merge(L1);
+    L2 = merge(L2);
+    return merge(L1,L2);
+    }
+*/
 int main(){
 
     node* head = NULL;
