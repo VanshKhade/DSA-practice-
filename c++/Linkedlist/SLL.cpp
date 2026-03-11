@@ -325,6 +325,63 @@ node* addtwoList(node* l1,node* l2){
     return head;
 }
 */
+/*//--CLone a linked list with next and random pointer--//
+  approach 1:-using hash map
+  #include<unordered_map>
+  struct node{
+    int data;
+    node* next;
+    node* random;
+    node(int val) : data(val), next(NULL), random(NULL) {}
+    };
+   node* cloneList(node* head){
+    unordered_map<node*,node*> mp;
+    node* temp = head;
+    step 1:- create copy nodes
+    while(temp){
+        mp[temp] = new node(temp->data);
+        temp = temp->next;
+    }
+    temp = head;
+    step 2:-Assign pointers
+    while(temp){
+        mp[temp]->next = mp[temp->next];
+        mp[temp]->random = mp[temp->random];
+        temp = temp->next;
+    }
+    return mp[head];
+    }
+approach 2:- temporarily mixing the clone nodes
+node* copyList(node* head){
+    if(head==NULL) return NULL;
+    node* temp = head;
+    step 1:-insert copy nodes in between
+    while(temp){
+        node* copynode = new node(temp->data);
+        copynode->next = temp->next;
+        temp->next = copynode;
+        temp = copynode->next;
+    }
+    step 2:-Set random pointers
+    temp = head;
+    while(temp){
+        if(temp->random != NULL)
+            temp->next->random = temp->random->next;
+            temp = temp->next->next;
+    }
+    step 3:- Separate both list
+    node* original = head;
+    node* copyhead = head->next;
+    node* copy = copyhead;
+    while(original){
+        original->next = original->next->next;
+        if(copy->next != NULL)
+            copy->next = copy->next->next;
+        original = original->next;
+        copy = copy->next;
+    }
+    return copyhead;
+}*/
 int main(){
 
     node* head = NULL;
