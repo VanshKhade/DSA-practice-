@@ -51,3 +51,23 @@ int main(){
     vector<int> heights = {2,1,5,6,2,3};
     cout<<"Largest Area: "<<largestRectangleArea(heights)<<endl;
 }
+/*//Single pass optimized solution
+    int LargestRectangleArea(vector<int> heights){
+        int n = heights.size();
+        stack<int> s;
+        int maxArea = 0;
+        for(int i =0; i<=n; i++){
+            int currheight = (i==n)? 0:heights[i];
+            while(!s.empty() && currheight<heights[s.top()]){
+                int h = heights[s.top()];
+                s.pop();
+                int right = i;
+                int left = s.empty() ? -1 : s.top();
+                int width = right - left -1;
+                maxArea = max(maxArea,h*width);
+            }
+            s.push(i);
+        }
+        return maxArea;    
+    }
+    */
